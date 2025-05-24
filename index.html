@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Password Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Generate a <br>
+            <span>Random Password</span>
+        </h1>
+        <div class="controls">
+            <label for="length">Password Length:</label>
+            <input type="number" id="length" min="4" max="20" value="8">
+        </div>
+        <div class="display">
+            <input type="text" placeholder="Password" id="password" readonly>
+            <img src="images/copy.png" onclick="copypassword()" alt="" title="Copy to clipboard">
+        </div>
+        <button onclick="createpassword()"><img src="images/generate.png">Generate Password</button>
+        <p id="copy-message" style="display: none; color: green;">Password copied to clipboard!</p>
+        <p id="error-message" style="display: none; color: red;">Please enter a valid length (4-20).</p>
+    </div>
+
+    <script>
+        const passwordbox = document.getElementById("password");
+        const lengthInput = document.getElementById("length");
+        const copyMessage = document.getElementById("copy-message");
+        const errorMessage = document.getElementById("error-message");
+
+        const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const lowercase = "abcdefghijklmnopqrstuvwxyz";
+        const symbols = "!@#$%^&*(){}[]-+/*+";
+        const numbers = "0123456789";
+
+        const allchars = uppercase + lowercase + symbols + numbers;
+
+        function createpassword() {
+            const length = parseInt(lengthInput.value);
+            if (isNaN(length) || length < 4 || length > 20) {
+                errorMessage.style.display = "block";
+                setTimeout(() => {
+                    errorMessage.style.display = "none";
+                }, 3000);
+                return;
+            }
+            errorMessage.style.display = "none";
+
+            let password = "";
+            password += uppercase[Math.floor(Math.random() * uppercase.length)];
+            password += lowercase[Math.floor(Math.random() * lowercase.length)];
+            password += symbols[Math.floor(Math.random() * symbols.length)];
+            password += numbers[Math.floor(Math.random() * numbers.length)];
+
+            while (length > password.length) {
+                password += allchars[Math.floor(Math.random() * allchars.length)];
+            }
+            passwordbox.value = password;
+        }
+
+        function copypassword() {
+            passwordbox.select();
+            document.execCommand("copy");
+            copyMessage.style.display = "block";
+            setTimeout(() => {
+                copyMessage.style.display = "none";
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>
