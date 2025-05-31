@@ -49,6 +49,6 @@ Open `index.html` in your browser to use the app.
 
 ## 📌 LIVE DEMO
 
-Check it out here: [https://randompasswordgenerator.vercel.app/] <!-- Replace with your actual live link -->
+Check it out here: [https://passwordgenerator-nine.vercel.app/] <!-- Replace with your actual live link -->
 
 ---
